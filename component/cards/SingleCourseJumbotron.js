@@ -59,7 +59,8 @@ const SingleCourseJumbotron = ({
                 </div>
                 ):(
                     <>
-                    <img src={image.Location}alt={name}className="img img-fluid"/>
+                    <img src={image.Location}alt={name}
+                    className="img img-fluid"/>
                     </>
                 )}
                 {loading ?(

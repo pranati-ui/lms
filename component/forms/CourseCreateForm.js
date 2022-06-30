@@ -23,7 +23,7 @@ const CourseCreateForm = ({
         <input
           type="text"
           name="name"
-          className="form-control mb-3"
+          className="form-control mb-3 "
           placeholder="Name"
           value={values.name}
           onChange={handleChange}
@@ -32,8 +32,8 @@ const CourseCreateForm = ({
       <div className="form-group">
         <textarea
           name="description"
-          cols="7"
-          rows="7"
+          cols="4"
+          rows="4"
           value={values.description}
           className="form-control mb-3"
           onChange={handleChange}
@@ -105,11 +105,12 @@ const CourseCreateForm = ({
           <Button
             onClick={handleSubmit}
             disabled={values.loading || values.uploading}
-            className="btn btn-primary"
+            className="btn btn-success"
             type="primary"
             loading={values.loading}
             size="large"
             shape="round"
+           
           >
             {values.loading ? "Saving..." : "Save & Continue"}
           </Button>

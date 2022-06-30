@@ -1,30 +1,32 @@
-import { useState, useEffect, useContext } from "react";
 import Link from "next/Link";
-import { Menu } from "antd";
+import { useRouter } from "next/router";
+import React, { useContext, useEffect, useState } from "react";
+import { Context } from "../context";
+import { Menu, Avatar, Dropdown, Drawer, SubMenu, ItemGroup } from "antd";
+import SearchBar from "./searchBar/searchBar";
 import {
-  AppstoreOutlined,
+  MenuOutlined,
   LogoutOutlined,
-  LoginOutlined,
-  UserAddOutlined,
-  CarryOutOutlined,
+  AppstoreOutlined,
   TeamOutlined,
 } from "@ant-design/icons";
-import { Context } from "../context";
 import { toast } from "react-toastify";
-import React from "react";
 import axios from "axios";
-import { useRouter } from "next/router";
-const { Item, SubMenu, ItemGroup } = Menu;
+const { Item } = Menu;
+
 const TopNav = () => {
   const [current, setCurrent] = useState("");
+  const [visible, setVisible] = useState(false);
   const { state, dispatch } = useContext(Context);
   const { user } = state;
-  console.log('user',state)
+  console.log("user", state);
   const router = useRouter();
+
   useEffect(() => {
     process.browser && setCurrent(window.location.pathname);
     console.log(window.location.pathname);
   }, [process.browser && window.location.pathname]);
+
   const logout = async () => {
     dispatch({ type: "LOGOUT" });
     window.localStorage.removeItem("user");
@@ -32,99 +34,148 @@ const TopNav = () => {
     toast(data.message);
     router.push("/login");
   };
-  // current: 'mail',
-  //};
-  // const handleClick = e => {
-  //   setcurrent({ current: e.key });
-  // };
+
+  const showDrawer = () => {
+    setVisible(true);
+  };
+
+  const onClose = () => {
+    setVisible(false);
+  };
 
   return (
-    <Menu mode="horizontal" selectedKeys={[current]} className = "mb-2">
-      <Item
-        key="/"
-        onClick={(e) => setCurrent(e.key)}
-        icon={<AppstoreOutlined />}
-      >
-        <Link href="/">
-          <a>App</a>
-        </Link>
-      </Item>
-      {user && user.data.role && user.data.role.includes("Instructor") ? (
-        <Item
-          key="/instructor/course/create"
-          onClick={(e) => setCurrent(e.key)}
-          icon={<CarryOutOutlined />}
-        >
-          <Link href="/instructor/course/create">
-            <a>Create Course</a>
-          </Link>
-        </Item>
-      ) : (
-        <Item
-          key="/user/become-instructor"
-          onClick={(e) => setCurrent(e.key)}
-          icon={<TeamOutlined />}
-        >
-          <Link href="/user/become-instructor">
-            <a>Become Instructor</a>
-          </Link>
-        </Item>
-      )}
-      
-      {user === null && (
-        <>
-          <Item
-            key="/login"
-            onClick={(e) => setCurrent(e.key)}
-            icon={< LoginOutlined />}
-          >
-            <Link href="/login">
-              <a>Login</a>
+    <>
+      <nav className=" bg-white main-nav ">
+        <div className="main-nav-content">
+          <div className="logo">
+            <img
+              src="./assets/images/prlogo1.png"
+              style={{ height: "auto", width: "130px", objectFit: "cover" }}
+            />
+          </div>
+          <div className="menu-link px-2">
+            <Link href="/">
+              <a>Home</a>
             </Link>
-          </Item>
-          <Item
-            key="/register"
-            onClick={(e) => setCurrent(e.key)}
-            icon={< UserAddOutlined />}
-          >
-            <Link href="/register">
-              <a>Register</a>
-            </Link>
-          </Item>
-        </>
-      )}
-      {user !== null && (
-        <SubMenu
-          key="/logout"
-          icon={<LogoutOutlined />}
-          title={user && user.data.name}
-          style={{float:"right"}}
-        >
-          <ItemGroup>
-            <Item key="/user">
-              <Link href={"/user"}>
-                <a>Dashboard</a>
+          </div>
+          {user && user.data.role && user.data.role.includes("Instructor") && (
+            <div className="menu-link px-3 ">
+              <Link href="/instructor">
+                <a>Instructor</a>
               </Link>
-            </Item>
+            </div>
+          )}
+          <div className="d-flex align-items-center flex-grow-1 desktop-menu ">
+            <div className="menu-link px-3 ">
+              {user &&
+              user.data.role &&
+              user.data.role.includes("Instructor") ? (
+                <Link href="/instructor/course/create">
+                <a>Create Course</a>
+                </Link>
+              ) : (
+                <Link href="/user/become-instructor">
+                <a>Become instructor</a>
+                 
+                </Link>
+              )}
+            </div>
+            <div className=" px-5" style={{ display: "flex", flexGrow: 1 }}>
+              <SearchBar />
+            </div>
+            {user === null ? (
+              <div className="d-flex align-items-center">
+                <div className="nav-item active mx-2">
+                  <Link href="/login">
+                    <a>
+                      <button className="btn btn-outline-success my-2 my-sm-0">
+                        Login
+                      </button>
+                    </a>
+                  </Link>
+                </div>
+                <div className="nav-item active mx-2">
+                  <Link href="/register">
+                    <a>
+                      <button
+                        className="btn btn-outline-success my-2 my-sm-0"
+                        style={{ backgroundColor: "#17bf9e", color: "white" }}
+                      >
+                        SignUp
+                      </button>
+                    </a>
+                  </Link>
+                </div>
+              </div>
+            ) : (
+              <>
+                <div className="avatar" style={{ position: "relative" }}>
+                  <Avatar
+                    style={{
+                      backgroundColor: "black",
+                      verticalAlign: "middle",
+                      position: "relative",
+                    }}
+                    size="large"
 
-            <Item onClick={logout}>Logout</Item>
-          </ItemGroup>
-        </SubMenu>
-      )}
-       {user && user.data.role && user.data.role.includes("Instructor") && (
-             <Item
-             key="/instructor"
-             onClick={(e) => setCurrent(e.key)}
-             icon={<TeamOutlined />}
-             className= "float-right"
-           >
-           <Link href="/instructor">
-             <a>Instructor</a>
-           </Link>
-         </Item>
+                    // gap={gap}
+                  >
+                    {user.data.name.split("")[0]}
+                  </Avatar>
+                  <div className="dropdown-menu-div">
+                    <div className="dropdown-content">
+                      <Link href="/user">
+                        <a>Dashboard</a>
+                      </Link>{" "}
+                      <div>
+                        <button onClick={logout}>Logout</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+          <div className="mobile-menu " onClick={showDrawer}>
+            <MenuOutlined />
+          </div>
+        </div>
+        <div className=" search-bars">
+          <SearchBar />
+        </div>
+      </nav>
+      <Drawer
+        title="Basic Drawer"
+        placement="right"
+        onClose={onClose}
+        visible={visible}
+        size={200}
+        style={{ zIndex: 2001 }}
+      >
+        {user !== null && (
+          <></>
+          // <SubMenu
+          //   key="/logout"
+          //   icon={<LogoutOutlined />}
+          //   title={user && user.data.name}
+          //   style={{ float: "right" }}
+          // >
+          //   <ItemGroup>
+          //     <Item key="/user">
+          //       <Link href={"/user"}>
+          //         <a>Dashboard</a>{" "}
+          //       </Link>{" "}
+          //     </Item>
 
-       )}
-    </Menu>
+          //     <Item onClick={logout}>Logout</Item>
+          //   </ItemGroup>
+          // </SubMenu>
+        )}
+        {/* <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p> */}
+      </Drawer>
+    </>
   );
 };
 export default TopNav;

@@ -7,22 +7,27 @@ const {name,instructor,price,image,slug,paid,category}=course;
 return (
 <Link href ={`/course/${slug}`}>
 <a>
-    <Card className="mb-4"
+    <Card className="mb-4 site-card-border-less-wrapper"
+    // style={{background:'#fff'}}
     cover ={
-        <img src ={image.Location}alt={name}style={{height:"200px",ObjectFit:"cover"}}
+        <img src ={image.Location}alt={name}style={{height:"200px",width:"100%",objectFit:'cover'}}
         className="p-1"
         />
     }>
-        <h2 className = "font-weight-bold">{name}</h2>
+        <h5 className = "font-weight-bold">{name}</h5>
         <p>by {instructor.name}</p>
-        <Badge count={category} style={{backgroundColor:"#03a9f4"}}className="pb-2 mr-2"/>
-        <h4 className="pt-2">{paid?  currencyFormatter({
+         <Badge count={category} className="pb-2 mr-2"/>
+        <h5 className="pt-2">{paid?  currencyFormatter({
             amount:price,
             currency:"INR"
-        }):"Free"}</h4>
+        }):"Free"}</h5>
+      
     </Card>
+    
 </a>
+
 </Link>
+
 );
 };
 export default CourseCard;

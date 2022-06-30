@@ -13,6 +13,7 @@ const [preview,setPreview] = useState("");
 const [loading,setLoading]=useState(false);
 const [enrolled,setEnrolled]=useState({});
 const {state:{user}}=useContext(Context);
+
 useEffect(()=>{
     if(user && course) checkEnrollment()
 },[user,course]);

@@ -6,7 +6,8 @@
     "dev": "node server.js",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "export": "next export"
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
@@ -17,10 +18,12 @@
     "css": "^3.0.0",
     "css-floats": "^1.0.7",
     "express": "^4.17.3",
+    "firebase": "^9.8.3",
     "http-proxy-middleware": "^2.0.4",
     "next": "^12.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-icons": "^4.4.0",
     "react-image-file-resizer": "^0.4.7",
     "react-markdown": "^8.0.3",
     "react-player": "^2.10.1",

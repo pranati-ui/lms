@@ -2,12 +2,11 @@ import { useState,useContext,useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import {SyncOutlined} from "@ant-design/icons";
-import Link from "next/Link";
-import { Content, Context } from "../context";
+import {Context } from "../context";
 import { useRouter } from "next/router";
 const ForgotPassword = () =>{
     const [email,setEmail] = useState("") ;
-    const [success,setSuccess] = useState(true);
+    const [success,setSuccess] = useState(false);
     const [code,setCode] = useState("");
     const [newPassword,setNewPassword] = useState("");
     const [loading,setLoading] = useState(false);
@@ -23,6 +22,7 @@ const ForgotPassword = () =>{
             const {data} = await axios.post("/api/forgot-password",{email});
             setSuccess(true)
             toast("Check your email from the secret code");
+            setLoading(false)
          }catch(err){
             setLoading(false);
             toast(err.response.data);
@@ -39,10 +39,10 @@ const ForgotPassword = () =>{
                 code,
                 newPassword,
             });
-            setEmail("");
-            setCode("");
-            setNewPassword("");
-            setLoading(false);
+           setEmail("");
+           setCode("");
+           setNewPassword("");
+           setLoading(false);
             toast("Great! now you can login with you new password");
         }catch (err){
             setLoading(false);
@@ -53,7 +53,7 @@ const ForgotPassword = () =>{
     return(
         <>
         <h1 className="jumbotron text-center bg-primary square">Forgot Password</h1>
-        <div className="container col-md-4 offset-md-4 pb-5Ks">
+        <div className="container col-md-4 offset-md-4 pb-5Ks" style={{marginTop:"80px"}}>
             <form onSubmit={success ? handleResetPassword : handleSubmit}>
                < input type = "email"
                 className="form-control mb-4 p-4" 
@@ -80,9 +80,11 @@ const ForgotPassword = () =>{
                />
                    </>
                    )}
-               <div className="d-grid gap-2">
+                   <br/>
+               <div className="d-grid gap-2" >
                <button type = "submit"className="btn btn-primary btn-block p-2" 
-               disabled={loading||!email}>
+               disabled={loading||!email}
+               >
                    {loading? <SyncOutlined spin /> :"Submit"}
                </button>
                </div>

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import {useRouter} from "next/router";
 import{SyncOutlined} from "@ant-design/icons";
-import UserNav from "../nav/UserNav";
+
 const StudentRoute = ({children}) => {
   const [ok, setOk] = useState(false);
   const router=useRouter();

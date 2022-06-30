@@ -2,10 +2,12 @@ import { useEffect,useState ,createElement } from "react"
 import {useRouter} from "next/router"
 import { Button,Menu,Avatar} from "antd";
 import axios from "axios";
+import React from "react";
 import ReactPlayer from "react-player";
 import ReactMarkdown from "react-markdown";
 import { PlayCircleOutlined ,MenuFoldOutlined , MenuUnfoldOutlined ,CheckCircleFilled , MinusCircleFilled} from "@ant-design/icons";
 import StudentRoute from "../../../component/routes/StudentRoute";
+
 const {Item}= Menu;
 const SingleCourse =()=>{
     const [clicked,setClicked]=useState(-1);
@@ -57,6 +59,7 @@ const SingleCourse =()=>{
                console.log(err);
            }
     };
+    
     return(
         <StudentRoute>
      <div className="row">
@@ -85,8 +88,7 @@ const SingleCourse =()=>{
                   />
                   ):(
                   
-                    <MinusCircleFilled className="text-danger ml-2"
-                    style={{float: "right",marginTop:"13px"}}
+                    <p class = "" 
                     />
                   )}
                   </Item>
@@ -122,13 +124,15 @@ const SingleCourse =()=>{
                  onEnded={()=>markCompleted()}
                  /> 
              </div>
+            
             </>
          )}
          
         <ReactMarkdown
-            children={course.lessons[clicked].content}
             className="single-post"
-            />
+            >
+                {course.lessons[clicked].content}
+            </ReactMarkdown>
          </>
          ) : (
             <div className="d-flex justify-content-center p-5">
