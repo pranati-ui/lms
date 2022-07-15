@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <footer
         className="d-flex justify-content-center align-items-center"
-        style={{ backgroundColor: " black", color: "white" }}
+        style={{backgroundColor: " black", color: "white" }}
       >
         <div
           className="d-flex justify-content-between align-items-center px-5 py-2"

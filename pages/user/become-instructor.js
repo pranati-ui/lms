@@ -4,6 +4,7 @@ import { Context } from "../../context";
 import { Button } from "antd";
 import{SettingOutlined,UserSwitchOutlined,LoadingOutlined} from "@ant-design/icons";
 import { toast } from "react-toastify";
+//import { json } from "express";
 //import UserRoute from "../../component/routes/UserRoute";
 
 const BecomeInstructor = () => {
@@ -16,8 +17,9 @@ const BecomeInstructor = () => {
        // console.log("become instructor");
        setLoading(true);
        axios.post("/api/make-instructor") .then(res =>{
-           console.log(res);
-           window.location.href = res.data;
+           console.log('res from make-instructor',res.data.url);
+
+           window.location.href = res.data.url;
 
        })
        .catch(err => {
@@ -28,8 +30,8 @@ const BecomeInstructor = () => {
     };
     return(
         <>
-        <h1 className = "jumbotron text-center square">Become Instructor</h1>
-        <div className="container">
+        <h1 className = "jumbotron text-center square" >Become Instructor</h1>
+        <div className="container"style={{height:"100vh"}}>
             <div className="row">
                <div className="col-md-6.offset-md-3,text-center">
                <div className="pt-4">

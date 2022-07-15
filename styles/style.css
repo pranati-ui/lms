@@ -9,3 +9,18 @@
 .pointer{
     cursor:pointer;
 }
+
+.left_arrow,.right_arrow{
+    position: absolute;
+    font-size: 40px;
+    top:50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+.left_arrow{
+left: -50px;
+}
+.right_arrow{
+right: -50px;
+}
+

@@ -1,7 +1,12 @@
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
-import { SyncOutlined,EyeOutlined,EyeInvisibleOutlined } from "@ant-design/icons";
+import {
+  SyncOutlined,
+  EyeOutlined,
+  EyeInvisibleOutlined,
+} from "@ant-design/icons";
+import { FcGoogle } from "react-icons/fc";
 import Link from "next/Link";
 import { Context } from "../context";
 import { useRouter } from "next/router";
@@ -10,9 +15,9 @@ import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../config/firebase";
 
 const Register = () => {
-  const [name, setName] = useState("pranati pradhan");
-  const [email, setEmail] = useState("pranatipradhannew@gmail.com");
-  const [password, setPassword] = useState("Rinky123@");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const {
@@ -101,13 +106,15 @@ const Register = () => {
           <h1 className="h1 fw-bold mb-0 text-center pb-4">Register</h1>
           {/* <div className="container col-md-4 offset-md-4 pb-5"> */}
           {/* <form onSubmit={handleSubmit}> */}
-            <div>
+          <div>
             <input
               type="text"
               className="form-control mb-4 p-3"
               value={name}
               // style={{marginTop:"-10px"}}
-              onChange={(e) => setName(e.target.value.replace(/[^a-zA-Z\s-]/g,""))}
+              onChange={(e) =>
+                setName(e.target.value.replace(/[^a-zA-Z\s-]/g, ""))
+              }
               placeholder="Enter name"
               required
             />
@@ -120,11 +127,9 @@ const Register = () => {
               placeholder="Enter email"
               required
             />
-            <div
-             style={{ position: "relative" }}
-             >
+            <div style={{ position: "relative" }}>
               <input
-                type={!showPassword ? "password" :'text' }
+                type={!showPassword ? "password" : "text"}
                 className="form-control mb-4 p-3"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -134,8 +139,8 @@ const Register = () => {
               <div
                 style={{
                   position: "absolute",
-                  right: '10px',
-                  top: '10px',
+                  right: "10px",
+                  top: "10px",
                   zIndex: 2,
                 }}
                 onClick={onTooglePassword}
@@ -154,17 +159,31 @@ const Register = () => {
                 {loading ? <SyncOutlined spin /> : "submit"}
               </button>
             </div>
-            <div className="d-grid pt-2 mb-2 w-100 px-6">
+
+            <div
+              className="d-grid pt-2 mb-2 w-100 px-6"
+              style={{ position: "relative" }}
+            >
               <button
-                className="btn btn-lg btn-danger btn-block "
+                className="btn btn-lg btn-light btn-block border-secondary"
                 type="submit"
                 onClick={googleLogin}
               >
-                <i class="fab fa-facebook-f me-2"></i>
-                SignUp with google
+                <h3
+                  style={{
+                    position: "absolute",
+                    zIndex: 2,
+                    top: "12px",
+                    left: "80px",
+                  }}
+                >
+                  <FcGoogle />
+                </h3>
+                SignUp With google
               </button>
             </div>
-            </div>
+          </div>
+
           {/* </form> */}
           <p className="text-center p-3">
             Already registered?{""}

@@ -136,7 +136,7 @@ const CourseView = () => {
 
   return (
     <InstructorRoute>
-      <div className="container-fluid pt-3">
+      <div className="container-fluid"style={{height:"100vh",paddingTop:"80px"}}>
         {/* <pre>{JSON.stringify(course,null,4)}</pre>*/}
         {course && (
           <div className="container-fluid pt-1">
@@ -156,6 +156,7 @@ const CourseView = () => {
                     <p style={{ marginTop: "-15px", fontSize: "15px" }}>
                       {course.category}
                     </p>
+                    
                   </div>
                   <div className="d-flex pt-4">
                     <Tooltip title={`${students} Enrolled`}>

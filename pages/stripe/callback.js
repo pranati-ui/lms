@@ -12,13 +12,13 @@ const StripeCallback =() => {
         console.log('user from callback',user)
         if(user){
            
-            axios.post("/api/get-account-status").then(res => {
-               // console.log(res);
-               dispatch({
+            axios.post("/api/get-account-status").then((res)=> {
+               console.log('res from getaccount status',res);
+            dispatch({
                     type:"LOGIN",
                     payload:res.data,
 
-                });
+               });
                 window.localStorage.setItem("user", JSON.stringify(res.data));
                 window.location.href = "/instructor";
             });

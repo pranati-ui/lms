@@ -16,3 +16,13 @@ a {
 .site-card-border-less-wrapper {
   color:blueviolet,
 }
+/* .slick-next{
+  background-color:black !important;
+} */
+.slick-prev{
+  left: -45px !important;
+}
+.slick-next:before,.slick-prev:before{
+  color: black !important;
+  font-size:40px !important ;
+}

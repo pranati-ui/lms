@@ -34,7 +34,7 @@ const handlePaidEnrollment=async()=>{
     const stripe= await loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
     stripe.redirectToCheckout({sessionId:data});
    }catch(err){
-      toast:("Enrollment failed.Try again.")
+      toast("Enrollment failed.Try again.")
       console.log(err)
       setLoading(false)
   }

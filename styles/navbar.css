@@ -50,6 +50,7 @@
 .avatar:hover .dropdown-menu-div{
 display: block;
 }
+
 .dropdown-menu-div{
   /* background: blue; */
   position: absolute;

@@ -28,9 +28,9 @@ const UserIndex = () => {
   return (
       <UserRoute>
        {loading &&(<SyncOutlined spin className="d-flex justify-content-center display-1 text-danger p-5"/>)}
-    {/* <h1 className="jumbotron text-center square">
-      User dashboard
-    </h1> */}
+     <h1 className="jumbotron text-center square" style={{paddingTop:"80px"}}>
+      My learnings
+    </h1> 
     {courses && courses.map(course =>(
       <div key = {course._id}className="media pt-2 pb-1">
         <Avatar size={80} shape="square" src={course.image? course.image.Location:"/course.png"}/>
@@ -38,7 +38,7 @@ const UserIndex = () => {
           <div className="row">
             <div className="col">
             <Link href={`/user/course/${course.slug}`}className="pointer">
-              <a><h5 className="mt-2 text-primary">{course.name}</h5></a>
+              <a><h6 className="mt-2 text-primary">{course.name}</h6></a>
               </Link>
               <p style={{marginTop:"-10x"}}>{course.lessons.length}Lessons</p>
               <p className="text-muted" style = {{marginTop:"-15px",fontSize:"12px"}}>

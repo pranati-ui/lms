@@ -7,10 +7,10 @@ const UserNav =() => {
       console.log(window.location.pathname);
     }, [process.browser && window.location.pathname]);
     return(
-        <div className = "nav flex-column nav-pills" style={{paddingTop:"80px"}}>
-            <Link href="/user">
+        <div className = "nav flex-column nav-pills" style={{paddingTop:"100px"}}>
+            {/* <Link href="/user">
             <a className ={`nav-link ${current === "/user" && "active"}`}>Dashboard</a>
-            </Link>
+            </Link> */}
         </div>
     );
 };

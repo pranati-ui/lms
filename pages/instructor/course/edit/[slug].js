@@ -14,10 +14,12 @@ const CourseEdit = () => {
     const [values,setValues] = useState({
       name:"" ,
       description:"" ,
-      price:"499.00",
+      price:"299.00",
       uploading: false,
       paid: true,
       category:"",
+      loading: false,
+      type:"",
       loading: false,
       lessons:[],
      
@@ -159,7 +161,7 @@ const CourseEdit = () => {
  };
     return(
         <InstructorRoute>
-        <h1 className = "jumbotron text-center square">Update Course</h1>
+        <h1 className = "jumbotron text-center square"style={{paddingTop:"80px"}}>Update Course</h1>
        {/*{JSON.stringify(values)}*/}
          <div className = "pt-3 pb-3">
              <CourseCreateForm
@@ -178,7 +180,7 @@ const CourseEdit = () => {
              <hr/>
     <pre>{JSON.stringify(image,null,4)}</pre>*/}
     <hr/>
-     <div className="row pb-5">
+     <div className="row" >
         <div className="col lesson-list">
             <h4>{values && values.lessons && values.lessons.length}Lessons
             </h4>

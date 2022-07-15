@@ -1,14 +1,16 @@
 import User from "../models/user";
 import Course from "../models/course";
 //import stripe from "stripe";
-import queryString from "query-string"
+
 const stripe = require("stripe")(process.env.STRIPE_SECRET)
 export const makeInstructor= async (req,res) => {
    try{
     const user = await User.findById(req.user._id).exec();
-    if(!user.stripe_account_){
+    console.log('user from database',user);
+    if(!user.stripe_account){
+        console.log('inside stripe')
         const account = await stripe.accounts.create({type: "standard"});
-        //console.log("ACCOUNT => ",account.id)
+        console.log("ACCOUNT => ",account.id)
         user.stripe_account_id=account.id;
         user.save();
     
@@ -19,10 +21,13 @@ export const makeInstructor= async (req,res) => {
         return_url:process.env.STRIPE_REDIRECT_URL,
         type:"account_onboarding",
     });
+   // console.log('accountLink from stripe',accountLink);
     accountLink = Object.assign(accountLink , {
         "stripe_user[email]":user.email,
     });
-    res.send(`${accountLink} ? ${queryString.stringify(accountLink)}`);
+    console.log('accountLink from stripe',accountLink);
+    //res.send(`${accountLink} ? ${queryString.stringify(accountLink)}`);
+    res.json(accountLink ?accountLink:{} );
 }catch (err){
     console.log("MAKE INSTRUCTOR ERR",err);
 }
@@ -80,4 +85,28 @@ export const makeInstructor= async (req,res) => {
        }catch(err){
            console.log(err)
        }
+   };
+
+   export const instructorBalance = async (req,res) =>{
+    try{
+        let user= await User.findById(req.user._id).exec();
+        const balance = await stripe.balance.retrieve({
+            stripeAccount:user.stripe_account_id,
+        });
+        res.json(balance);
+    }catch(err){
+      console.log(err); 
+    }
+   };
+ 
+   export const instructorPayoutSettings = async (req,res) =>{
+    try{
+        const user = await User.findById(req.user._id).exec();
+        const loginLink = await stripe.accounts.createLoginLink(
+            user.stripe_seller.id,{redirect_url : process.env.STRIPE_SETTING_REDIRECT}
+        );
+        res.json(loginLink.url);
+    }catch(err){
+
+    }
    }

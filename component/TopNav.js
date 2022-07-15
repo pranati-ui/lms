@@ -58,7 +58,7 @@ const TopNav = () => {
               <a>Home</a>
             </Link>
           </div>
-          {user && user.data.role && user.data.role.includes("Instructor") && (
+          {user && user.role && user.role.includes("Instructor") && (
             <div className="menu-link px-3 ">
               <Link href="/instructor">
                 <a>Instructor</a>
@@ -66,23 +66,28 @@ const TopNav = () => {
             </div>
           )}
           <div className="d-flex align-items-center flex-grow-1 desktop-menu ">
-            <div className="menu-link px-3 ">
-              {user &&
-              user.data.role &&
-              user.data.role.includes("Instructor") ? (
-                <Link href="/instructor/course/create">
-                <a>Create Course</a>
-                </Link>
-              ) : (
-                <Link href="/user/become-instructor">
-                <a>Become instructor</a>
-                 
-                </Link>
-              )}
-            </div>
             <div className=" px-5" style={{ display: "flex", flexGrow: 1 }}>
               <SearchBar />
             </div>
+            
+            <div className="d-flex  d-flex align-items-center ">
+            <div className="nav-item active mx-2">
+                    <a>About Us</a>
+                    <div className="dropdown-menu-div">
+                    <div className="dropdown-content">
+                      <div className="menu-link">
+                      <a>My learnings</a>
+                        </div>
+                        </div>
+                      </div>
+                      </div>
+                      </div>
+                      <div className="d-flex align-items-center my-2 text-dark">
+                      <div className="nav-item active mx-2">
+                    <a>Contact Us</a>
+                      </div>
+                      </div>
+                      
             {user === null ? (
               <div className="d-flex align-items-center">
                 <div className="nav-item active mx-2">
@@ -120,16 +125,34 @@ const TopNav = () => {
 
                     // gap={gap}
                   >
-                    {user.data.name.split("")[0]}
+                    {user?.name?.split("")[0]}
                   </Avatar>
                   <div className="dropdown-menu-div">
                     <div className="dropdown-content">
+                      <div className="menu-link">
+                        {user &&
+                        user.role &&
+                        user.role.includes("Instructor") ? (
+                          <Link href="/instructor/course/create">
+                            <a>Create Course</a>
+                          </Link>
+                        ) : (
+                          <Link href="/user/become-instructor">
+                            <a>Become instructor</a>
+                          </Link>
+                        )}
+                      </div>
+                      <div className=" menu-link pt-2">
                       <Link href="/user">
-                        <a>Dashboard</a>
+                        <a>My learnings</a>
                       </Link>{" "}
+                      </div>
+                      <div className=" menu-link px-5 pt-2 ">
                       <div>
                         <button onClick={logout}>Logout</button>
                       </div>
+                      </div>
+                     
                     </div>
                   </div>
                 </div>

@@ -22,6 +22,7 @@ import {
     markCompleted,
     listCompleted,
     markIncomplete,
+    stripeSuccess,
 } from "../controllers/course";
 router.get("/courses",courses);
 router.post("/course/upload-image", uploadImage);
@@ -40,6 +41,7 @@ router.put("/course/:slug/:lessonId",requireSignin,removeLesson);
 router.get("/check-enrollment/:courseId",requireSignin,checkEnrollment);
 router.post("/free-enrollment/:courseId",requireSignin,freeEnrollment);
 router.post("/paid-enrollment/:courseId",requireSignin,paidEnrollment);
+router.get("/stripe-success/:courseId",requireSignin,stripeSuccess)
 router.get("/user-courses",requireSignin,userCourses);
 router.get("/user/course/:slug",requireSignin,isEnrolled,read);
 router.post("/mark-completed",requireSignin,markCompleted);
